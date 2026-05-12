@@ -1,0 +1,10 @@
+{
+	"dateFormat": "yyyy-MM-dd",
+	"clockFormat": "hh:mm",
+	"animationSpeed": 150,
+	"borderWidth": 3,
+	"borderRadius": 25,
+	"borderMargin": 25,
+	"buttonSize": 50,
+	"buttonSpacing": 15
+}
