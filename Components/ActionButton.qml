@@ -3,6 +3,10 @@ import QtQuick.Controls
 
 import qs.Theme
 
+/**
+ * ActionButton.qml
+ * Round button to trigger an action, i.e PowerOff, Back, etc.
+ */
 Button {
 	id: root
 
@@ -12,12 +16,13 @@ Button {
 	/** Button colorscheme (inactive, hover, pressed) */
 	property ButtonColors theme: ButtonColors {}
 
-	width: Theme.style.buttonSize
-	height: Theme.style.buttonSize
+	implicitWidth: Theme.style.buttonSize
+	implicitHeight: Theme.style.buttonSize
+
 	display: AbstractButton.IconOnly
 	hoverEnabled: true
 
-	icon.color: root.theme.foreground.inactivoe
+	icon.color: root.theme.foreground.inactive
 	background: Rectangle {
 		id: background
 		radius: (Math.max(root.height, root.width) / 2)
@@ -25,7 +30,7 @@ Button {
 
 		Behavior on color {
 			ColorAnimation {
-				duration: Theme.style.animationSpeed
+				duration: Theme.style.animationSpeedShort
 			}
 		}
 	}

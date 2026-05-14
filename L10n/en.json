@@ -1,5 +1,6 @@
 {
 	"dateMessage": "Today is",
 	"dateFormat": "yyyy-MM-dd",
-	"userListError": "Unable to retrieve users from D-Bus"
+	"userListError": "Unable to retrieve users from D-Bus",
+	"userWelcome": "Welcome back, %1"
 }

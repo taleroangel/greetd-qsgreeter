@@ -4,16 +4,30 @@ import QtQuick.Effects
 
 import qs.Theme
 
+/**
+ * UserButton.qml
+ * Show user icon in a circle with name below (or just the icon)
+ */
 Item {
 	id: root
 
+	/** Name to display below icon, if no icon is found then the first initial is used instead */
 	required property string realName
+
+	/** Path to icon to display, if null or invalid show user initials instead */
 	required property string iconPath
 
-	/** Button is clicked */
+	/** When this is false, all actions are disabled, button acts just as an image placeholder */
+	property bool enabled: true
+
+	/** Signal for button click */
 	signal clicked
 
+	/** Default colors when no `iconPath` is provided */
 	property ButtonColors theme: ButtonColors {}
+
+	implicitWidth: Theme.style.accountSize
+	implicitHeight: Theme.style.accountSize
 
 	/* Children */
 	Rectangle {
@@ -29,6 +43,7 @@ Item {
 			anchors.centerIn: parent
 			color: root.theme.foreground.inactive
 			font.pixelSize: (Math.min(parent.width, parent.height) / 2)
+			visible: (face.status == Image.Error) || (face.status == Image.Null)
 		}
 
 		/* Profile Image */
@@ -66,13 +81,13 @@ Item {
 		/* Animations */
 		Behavior on color {
 			ColorAnimation {
-				duration: Theme.style.animationSpeed
+				duration: Theme.style.animationSpeedShort
 			}
 		}
 
 		Behavior on scale {
 			NumberAnimation {
-				duration: 2 * Theme.style.animationSpeed
+				duration: Theme.style.animationSpeedLarge
 				easing.type: Easing.OutQuad
 			}
 		}
@@ -80,6 +95,7 @@ Item {
 
 	Text {
 		id: username
+		visible: root.enabled
 		anchors {
 			top: account.bottom
 			horizontalCenter: root.horizontalCenter
@@ -92,11 +108,13 @@ Item {
 	/* Handle Mouse Events */
 	HoverHandler {
 		id: hover
+		enabled: root.enabled
 	}
 
 	TapHandler {
 		id: tap
 		onTapped: root.clicked()
+		enabled: root.enabled
 	}
 
 	/* States based on mouse movement */

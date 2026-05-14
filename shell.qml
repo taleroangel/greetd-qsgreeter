@@ -3,6 +3,7 @@ import Quickshell
 import QtQuick.Layouts
 
 import qs.Theme
+import qs.L10n
 import qs.Components as Components
 
 FloatingWindow {
@@ -20,6 +21,7 @@ FloatingWindow {
 		border.width: Theme.style.borderEnable ? Theme.style.borderWidth : 0
 
 		Components.Clock {
+			id: clock
 			anchors {
 				top: parent.top
 				topMargin: Theme.style.borderMargin
@@ -27,15 +29,19 @@ FloatingWindow {
 			}
 		}
 
-		Components.UserList {
+		Components.UserSelection {
+			id: users
 			anchors.centerIn: parent
-
-			onSelected: function(user) {
-				console.log(JSON.stringify(user))
+			/* Show either the date or a welcome message */
+			onUserChanged: {
+				clock.message = (users.user != undefined)
+					? L10n.userWelcome.arg(users.user.RealName)
+					: undefined;
 			}
 		}
 
 		Row {
+			id: power
 			anchors {
 				bottom: parent.bottom
 				bottomMargin: Theme.style.borderMargin
@@ -43,7 +49,7 @@ FloatingWindow {
 			}
 			spacing: Theme.style.buttonSpacing
 
-			Components.PowerButton {
+			Components.ActionButton {
 				source: Qt.resolvedUrl("Assets/power.svg")
 
 				theme {
@@ -59,7 +65,7 @@ FloatingWindow {
 				}
 			}
 
-			Components.PowerButton {
+			Components.ActionButton {
 				source: Qt.resolvedUrl("Assets/reboot.svg")
 				theme.foreground.inactive: Theme.colors.surfaceContrast
 

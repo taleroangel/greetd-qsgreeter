@@ -15,9 +15,6 @@ import qs.L10n
 Item {
 	id: root
 
-	width: parent.width
-	height: Theme.style.accountSize
-
 	UserService {
 		id: userService
 
@@ -32,7 +29,7 @@ Item {
 	states: [
 		State {
 			name: "busy"
-			when: userService.busy && !userService.ready
+			when: userService.busy
 			PropertyChanges {
 				target: busyComponent
 				opacity: 1
@@ -59,7 +56,7 @@ Item {
 	transitions: Transition {
 		NumberAnimation {
 			property: "opacity"
-			duration: Theme.style.animationSpeed
+			duration: Theme.style.animationSpeedShort
 			easing.type: Easing.InOutQuad
 		}
 	}
@@ -67,7 +64,9 @@ Item {
 	/* Spin indicator */
 	BusyIndicator {
 		id: busyComponent
-		anchors.fill: parent
+		anchors.centerIn: parent
+		Layout.preferredWidth: Theme.style.accountSize
+		Layout.preferredHeight: Theme.style.accountSize
 		opacity: 0
 	}
 

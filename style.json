@@ -13,5 +13,6 @@
 	"accountSpacing": 30,
 	"accountSize": 120,
 	"accountBounce": 1.2,
-	"animationSpeed": 150
+	"animationSpeedShort": 150,
+	"animationSpeedLarge": 300
 }

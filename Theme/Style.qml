@@ -35,6 +35,6 @@ QtObject {
 	property real accountBounce: 1.2
 	
 	// Animations
-	property int animationSpeed: 150
-
+	property int animationSpeedShort: 150
+	property int animationSpeedLarge: 300
 }
