@@ -1,0 +1,5 @@
+{
+	"dateMessage": "Today is",
+	"dateFormat": "yyyy-MM-dd",
+	"userListError": "Unable to retrieve users from D-Bus"
+}

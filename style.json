@@ -1,0 +1,15 @@
+{
+	"clockLocale": false,
+	"fontFamilyHeading": "monospace",
+	"fontFamilyParagraph": "sans-serif",
+	"fontSizeHeading": 45,
+	"fontSizeParagraph": 16,
+	"borderWidth": 3,
+	"borderRadius": 25,
+	"borderMargin": 25,
+	"buttonSize": 50,
+	"buttonSpacing": 15,
+	"accountSpacing": 25,
+	"accountSize": 100,
+	"animationSpeed": 150
+}

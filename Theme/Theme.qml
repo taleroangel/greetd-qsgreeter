@@ -5,6 +5,10 @@ import Quickshell
 
 import qs.Config
 
+/**
+ * Theme.qml
+ * Global application theme
+ */
 Singleton {
 	id: theme
 	
@@ -14,9 +18,9 @@ Singleton {
 		src: "colorscheme.json"
 	}
 
-	property Properties props: Properties {}
+	property Style style: Style {}
 	ConfigLoader {
-		target: theme.props
-		src: "properties.json"
+		target: theme.style
+		src: "style.json"
 	}
 }

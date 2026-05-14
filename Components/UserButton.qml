@@ -6,27 +6,28 @@ import qs.Theme
 Button {
 	id: root
 
-	/** Image source URL */
-	property alias source: root.icon.source
+	required property string userName
+	required property string realName
+	required property string iconPath
 
-	/** Button colorscheme (inactive, hover, pressed) */
 	property ButtonColors theme: ButtonColors {}
 
-	width: Theme.style.buttonSize
-	height: Theme.style.buttonSize
-	display: AbstractButton.IconOnly
 	hoverEnabled: true
 
-	icon.color: root.theme.foreground.inactivoe
 	background: Rectangle {
 		id: background
 		radius: (width / 2)
-		color: root.theme.background.inactive
+		color: theme.background.inactive
 
 		Behavior on color {
 			ColorAnimation {
 				duration: Theme.style.animationSpeed
 			}
+		}
+
+		Text {
+			text: userName
+			color: "white"
 		}
 	}
 
@@ -60,5 +61,4 @@ Button {
 			}
 		},
 	]
-
 }

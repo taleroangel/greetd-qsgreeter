@@ -4,6 +4,10 @@ import Quickshell.Io
 
 import "config.js" as Config
 
+/**
+ * ConfigLoader.qml
+ * Load properties from a .json file into a QtObject type
+ */
 FileView {
 	id: root
 
