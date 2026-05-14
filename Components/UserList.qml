@@ -13,6 +13,8 @@ import qs.L10n
  * Use `UserService` to display list of users
  */
 Item {
+	id: root
+
 	width: parent.width
 	height: Theme.style.accountSize
 
@@ -23,6 +25,9 @@ Item {
 			reload()
 		}
 	}
+
+	/** User was selected, pass user object as param */
+	signal selected(user: var)
 
 	states: [
 		State {
@@ -88,9 +93,13 @@ Item {
 			delegate: UserButton {
 				required property var modelData
 
-				userName: modelData.UserName
 				realName: modelData.RealName
 				iconPath: modelData.IconFile
+
+				Layout.preferredWidth: Theme.style.accountSize
+				Layout.preferredHeight: Theme.style.accountSize
+
+				onClicked: root.selected(modelData)
 			}
 		}
 	}

@@ -14,6 +14,10 @@ QtObject {
 	property int fontSizeHeading: 30
 	property int fontSizeParagraph: 14
 
+	// When set to false, borders are not drawn, instead
+	// task is delegated to compositor
+	property bool borderEnable: true
+	
 	// Window Borders
 	property int borderWidth: 3
 	property int borderRadius: 20
@@ -24,9 +28,11 @@ QtObject {
 	property int buttonSpacing: 20
 
 	// Spacing between account icons
-	property int accountSpacing: 25
+	property int accountSpacing: 30
 	// Size of the account icon
-	property int accountSize: 100
+	property int accountSize: 120
+	// How much the account icon grows on hover
+	property real accountBounce: 1.2
 	
 	// Animations
 	property int animationSpeed: 150

@@ -20,7 +20,7 @@ Button {
 	icon.color: root.theme.foreground.inactivoe
 	background: Rectangle {
 		id: background
-		radius: (width / 2)
+		radius: (Math.max(root.height, root.width) / 2)
 		color: root.theme.background.inactive
 
 		Behavior on color {

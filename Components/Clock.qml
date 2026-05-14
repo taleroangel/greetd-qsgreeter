@@ -4,8 +4,11 @@ import Quickshell
 import qs.L10n
 import qs.Theme
 
+/**
+ * Clock.qml
+ * Show system clock
+ */
 Column {
-
 	property alias color: clock.color
 
 	SystemClock {

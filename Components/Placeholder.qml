@@ -2,6 +2,10 @@ import QtQuick
 
 import qs.Theme
 
+/**
+ * Placeholder.qml
+ * Show a "dialog" like placeholder with text
+ */
 Rectangle {
 	id: root
 

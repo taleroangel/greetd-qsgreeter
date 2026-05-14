@@ -4,12 +4,14 @@
 	"fontFamilyParagraph": "sans-serif",
 	"fontSizeHeading": 45,
 	"fontSizeParagraph": 16,
+	"borderEnable": false,
 	"borderWidth": 3,
 	"borderRadius": 25,
 	"borderMargin": 25,
 	"buttonSize": 50,
 	"buttonSpacing": 15,
-	"accountSpacing": 25,
-	"accountSize": 100,
+	"accountSpacing": 30,
+	"accountSize": 120,
+	"accountBounce": 1.2,
 	"animationSpeed": 150
 }
