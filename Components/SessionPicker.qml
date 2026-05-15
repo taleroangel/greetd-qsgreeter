@@ -2,6 +2,7 @@ import QtQuick
 import QtQuick.Controls
 
 import qs.Theme
+import qs.Animations
 
 ComboBox {
 	id: control
@@ -39,48 +40,8 @@ ComboBox {
 			selected: true
 		}
 
-		enter: Transition {
-			NumberAnimation {
-				property: "scale"
-				easing: Easing.InQuad
-				duration: Theme.style.animationSpeedShort
-				from: (1 - Theme.style.animationBounce)
-				to: 1.0
-			}
-			NumberAnimation {
-				property: "opacity"
-				duration: Theme.style.animationSpeedShort
-				from: 0.0
-				to: 1.0
-			}
-		}
-
-		exit: Transition {
-			SequentialAnimation {
-				NumberAnimation {
-					property: "scale"
-					easing: Easing.InQuad
-					duration: (Theme.style.animationSpeedShort / 2)
-					from: 1.0
-					to: (1 + (Theme.style.animationBounce) / 2)
-				}
-
-				NumberAnimation {
-					property: "scale"
-					easing: Easing.OutQuad
-					duration: (Theme.style.animationSpeedShort / 2)
-					from: (1 + (Theme.style.animationBounce / 2))
-					to: (1 - (Theme.style.animationBounce / 2))
-				}
-			}
-
-			NumberAnimation {
-				property: "opacity"
-				duration: Theme.style.animationSpeedShort
-				from: 1.0
-				to: 0.0
-			}
-		}
+		enter: PopupEnterTransition {}
+		exit: PopupExitTransition {}
 	}
 
 	delegate: ItemDelegate {

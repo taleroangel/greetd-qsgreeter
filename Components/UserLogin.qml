@@ -62,7 +62,7 @@ RowLayout {
 	spacing: Theme.style.accountSpacing
 
 	/* Go Back Button */
-	ActionButton {
+	IconButton {
 		source: Qt.resolvedUrl("../Assets/back.svg")
 		onClicked: {
 			root.cancel();
@@ -110,7 +110,7 @@ RowLayout {
 			}
 
 			/* Login button */
-			ActionButton {
+			IconButton {
 				Layout.maximumHeight: passwordInput.height
 				radius: Theme.style.promptInputRadius
 				source: Qt.resolvedUrl("../Assets/next.svg")

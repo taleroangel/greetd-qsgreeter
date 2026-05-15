@@ -12,6 +12,26 @@ FloatingWindow {
 	maximumSize: "1000x500"
 	minimumSize: "600x400"
 
+	/* Poweroff confirmation dialog */
+	Components.ConfirmDialog {
+		id: shutdownConfirm
+		message: L10n.dialogShutdown
+
+		onAccepted: {
+			console.log("TODO: Shutdown");
+		}
+	}
+
+	/* Reboot confirmation dialog */
+	Components.ConfirmDialog {
+		id: rebootConfirm
+		message: L10n.dialogReboot
+
+		onAccepted: {
+			console.log("TODO: Reboot");
+		}
+	}
+
 	Rectangle {
 		anchors.fill: parent
 		color: Theme.colors.surface
@@ -20,6 +40,7 @@ FloatingWindow {
 		border.color: Theme.style.borderEnable ? Theme.colors.primary : "transparent"
 		border.width: Theme.style.borderEnable ? Theme.style.borderWidth : 0
 
+		/* Top clock and welcome message */
 		Components.Clock {
 			id: clock
 			anchors {
@@ -29,6 +50,7 @@ FloatingWindow {
 			}
 		}
 
+		/* User list and login prompt */
 		Components.UserSelection {
 			id: users
 			anchors.centerIn: parent
@@ -40,6 +62,7 @@ FloatingWindow {
 			}
 		}
 
+		/* Power buttons */
 		Row {
 			id: power
 			anchors {
@@ -49,7 +72,8 @@ FloatingWindow {
 			}
 			spacing: Theme.style.buttonSpacing
 
-			Components.ActionButton {
+			/* Power-off button */
+			Components.IconButton {
 				source: Qt.resolvedUrl("Assets/power.svg")
 
 				theme {
@@ -61,14 +85,16 @@ FloatingWindow {
 				}
 
 				onClicked: {
-					console.log("TODO: Poweroff");
+					shutdownConfirm.open()
 				}
 			}
 
-			Components.ActionButton {
+			/* Reboot button */
+			Components.IconButton {
 				source: Qt.resolvedUrl("Assets/reboot.svg")
+
 				onClicked: {
-					console.log("TODO: Reboot");
+					rebootConfirm.open()
 				}
 			}
 		}

@@ -4,14 +4,11 @@ import QtQuick.Controls
 import qs.Theme
 
 /**
- * ActionButton.qml
- * Round button to trigger an action, i.e PowerOff, Back, etc.
+ * CustomButton.qml
+ * Base style button for IconButton and TextButton
  */
 Button {
 	id: root
-
-	/** Image source URL */
-	property alias source: root.icon.source
 
 	/** Button colorscheme (inactive, hover, pressed) */
 	property ButtonColors theme: ButtonColors {}
@@ -19,13 +16,11 @@ Button {
 	/** Override default radius */
 	property alias radius: background.radius
 
-	implicitWidth: Theme.style.buttonSize
-	implicitHeight: Theme.style.buttonSize
-
-	display: AbstractButton.IconOnly
 	hoverEnabled: true
 
 	icon.color: root.theme.foreground.inactive
+	palette.buttonText: root.theme.foreground.inactive
+
 	background: Rectangle {
 		id: background
 		radius: (Math.max(root.height, root.width) / 2)
@@ -51,6 +46,7 @@ Button {
 			PropertyChanges {
 				target: root
 				icon.color: root.theme.foreground.hover
+				palette.buttonText: root.theme.foreground.hover
 			}
 		},
 		State {
@@ -65,6 +61,7 @@ Button {
 			PropertyChanges {
 				target: root
 				icon.color: root.theme.foreground.pressed
+				palette.buttonText: root.theme.foreground.pressed
 			}
 		},
 	]

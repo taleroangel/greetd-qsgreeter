@@ -17,6 +17,11 @@ Singleton {
 
 	property string dateMessage: "<l10n.dateMessage>"
 	property string dateFormat: "<l10n.dateFormat>"
+	property string dialogConfirmAction: "<l10n.dialogConfirmAction>"
+	property string dialogAccept: "<l10n.dialogAccept>"
+	property string dialogCancel: "<l10n.dialogCancel>"
+	property string dialogShutdown: "<l10n.dialogShutdown>"
+	property string dialogReboot: "<l10n.dialogReboot>"
 	property string userListError: "<l10n.userListError>"
 	property string userWelcome: "<l10n.userWelcome(%1)>"
 	property string userPrompt: "<l10n.userPrompt(%1)>"

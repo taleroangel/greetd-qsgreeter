@@ -1,6 +1,11 @@
 {
 	"dateMessage": "Today is",
 	"dateFormat": "yyyy-MM-dd",
+	"dialogConfirmAction": "Confirm action",
+	"dialogAccept": "Accept",
+	"dialogCancel": "Cancel",
+	"dialogShutdown": "Are you sure you want to shutdown?",
+	"dialogReboot": "Are you sure you want to reboot?",
 	"userListError": "Unable to retrieve users from D-Bus",
 	"userWelcome": "Welcome back, %1",
 	"userPrompt": "Login for %1",
