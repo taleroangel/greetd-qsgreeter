@@ -17,10 +17,6 @@ Item {
 
 	UserService {
 		id: userService
-
-		Component.onCompleted: {
-			reload()
-		}
 	}
 
 	/** User was selected, pass user object as param */

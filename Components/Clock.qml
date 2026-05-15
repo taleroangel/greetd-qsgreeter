@@ -14,8 +14,8 @@ Column {
 	/** Clock color */
 	property alias color: clock.color
 
-	/** Custom message to show above clock, if undefined show date */
-	property string message: undefined
+	/** Custom message to show above clock, if undefined or empty show date */
+	property string message: ""
 
 	/** Get curernt Date */
 	function getDate() {

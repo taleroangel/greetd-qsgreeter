@@ -11,6 +11,7 @@ QtObject {
 
 	// Secondary
 	property color secondary: "#ccc2db"
+	property color secondaryContrast: "#342c48"
 
 	// Error
 	property color error: "#ff0000"

@@ -25,5 +25,7 @@ Rectangle {
 		anchors.centerIn: parent
 		text: root.text
 		color: root.foregroundColor
+		font.family: Theme.style.fontFamilyParagraph
+		font.pixelSize: Theme.style.fontSizeParagraph
 	}
 }

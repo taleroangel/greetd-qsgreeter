@@ -12,7 +12,11 @@
 	"buttonSpacing": 15,
 	"accountSpacing": 30,
 	"accountSize": 120,
-	"accountBounce": 1.2,
+	"promptSpacing": 5,
+	"promptSize": 200,
+	"promptInputPadding": 8,
+	"promptInputRadius": 10,
+	"animationBounce": 0.2,
 	"animationSpeedShort": 150,
 	"animationSpeedLarge": 300
 }

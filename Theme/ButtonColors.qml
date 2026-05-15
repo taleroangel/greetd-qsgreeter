@@ -11,7 +11,7 @@ QtObject {
 	}
 
 	property HoverColors foreground: HoverColors {
-		inactive: Theme.colors.primary
+		inactive: Theme.colors.surfaceContrast
 		hover: Theme.colors.primaryContrast
 		pressed: Theme.colors.primary
 	}

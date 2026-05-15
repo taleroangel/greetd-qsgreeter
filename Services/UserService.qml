@@ -33,16 +33,13 @@ QtObject {
 	/** Call org.freedesktop.Accounts#ListCachedUsers */
 	property Process _procListCachedUsers: Process {
 		id: proc
-
 		command: [
 			"gdbus", "call", "--system",
 			"--dest", "org.freedesktop.Accounts",
 			"--object-path", "/org/freedesktop/Accounts",
 			"--method", "org.freedesktop.Accounts.ListCachedUsers"
 		]
-
 		stdout: StdioCollector {}
-
 		onStarted: {
 			console.log("Retrieving list of users from D-Bus");
 			root.paths = [];
@@ -51,7 +48,6 @@ QtObject {
 			root.ready = false;
 			root.error = false;
 		}
-
 		onExited: function(exitCode, exitStatus) {
 			if (exitCode == 0) {
 				/* Set path for each user and call Process */
@@ -69,12 +65,9 @@ QtObject {
 	/** Call org.freedesktop.Accounts.User for each user */
 	property Instantiator _workerFactory: Instantiator {
 		model: root.paths
-
 		delegate: Process {
 			id: proc
-
 			running: true
-
 			command: [
 				"gdbus", "call", "--system",
 				"--dest", "org.freedesktop.Accounts",
@@ -82,9 +75,7 @@ QtObject {
 				"org.freedesktop.Accounts.User",
 				"--object-path", modelData
 			]
-
 			stdout: StdioCollector {}
-
 			onExited: function(exitCode, exitStatus) {
 				if (exitCode == 0) {
 					/* Append user data to json list */
@@ -108,7 +99,13 @@ QtObject {
 		}
 	}
 
+	/** Reload list of available system users */
 	function reload() {
 		root._procListCachedUsers.running = true
+	}
+
+	/* Automatically load list of users */
+	Component.onCompleted: {
+		reload()
 	}
 }

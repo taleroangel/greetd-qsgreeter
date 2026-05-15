@@ -39,9 +39,10 @@ Item {
 		/* Profile Image Fallback */
 		Text {
 			id: iconText
-			text: root.realName[0]
+			text: (root.realName != "") ? root.realName[0] : ""
 			anchors.centerIn: parent
 			color: root.theme.foreground.inactive
+			font.family: Theme.style.fontFamilyParagraph
 			font.pixelSize: (Math.min(parent.width, parent.height) / 2)
 			visible: (face.status == Image.Error) || (face.status == Image.Null)
 		}
@@ -103,6 +104,8 @@ Item {
 		}
 		text: root.realName
 		color: root.theme.foreground.inactive
+		font.family: Theme.style.fontFamilyParagraph
+		font.pixelSize: Theme.style.fontSizeParagraph
 	}
 
 	/* Handle Mouse Events */
@@ -120,13 +123,22 @@ Item {
 	/* States based on mouse movement */
 	states: [
 		State {
+			name: "inactive"
+			when: !hover.hovered && !tap.pressed
+
+			PropertyChanges {
+				target: account
+				scale: 1.0
+			}
+		},
+		State {
 			name: "hover"
 			when: hover.hovered && !tap.pressed
 
 			PropertyChanges {
 				target: account
 				color: root.theme.background.hover
-				scale: Theme.style.accountBounce
+				scale: (1 + Theme.style.animationBounce)
 			}
 
 			PropertyChanges {
@@ -137,6 +149,12 @@ Item {
 		State {
 			name: "pressed"
 			when: hover.hovered && tap.pressed
+
+			PropertyChanges {
+				target: account
+				color: root.theme.background.hover
+				scale: 1.0
+			}
 
 			PropertyChanges {
 				target: account

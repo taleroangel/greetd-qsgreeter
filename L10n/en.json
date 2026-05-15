@@ -2,5 +2,7 @@
 	"dateMessage": "Today is",
 	"dateFormat": "yyyy-MM-dd",
 	"userListError": "Unable to retrieve users from D-Bus",
-	"userWelcome": "Welcome back, %1"
+	"userWelcome": "Welcome back, %1",
+	"userPrompt": "Login for %1",
+	"passwordPlaceholder": "Password"
 }

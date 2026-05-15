@@ -10,7 +10,7 @@ FloatingWindow {
 	title: "qsgreeter"
 	color: "transparent"
 	maximumSize: "1000x500"
-	minimumSize: "600x300"
+	minimumSize: "600x400"
 
 	Rectangle {
 		anchors.fill: parent
@@ -36,7 +36,7 @@ FloatingWindow {
 			onUserChanged: {
 				clock.message = (users.user != undefined)
 					? L10n.userWelcome.arg(users.user.RealName)
-					: undefined;
+					: "";
 			}
 		}
 
@@ -67,8 +67,6 @@ FloatingWindow {
 
 			Components.ActionButton {
 				source: Qt.resolvedUrl("Assets/reboot.svg")
-				theme.foreground.inactive: Theme.colors.surfaceContrast
-
 				onClicked: {
 					console.log("TODO: Reboot");
 				}

@@ -16,6 +16,9 @@ Button {
 	/** Button colorscheme (inactive, hover, pressed) */
 	property ButtonColors theme: ButtonColors {}
 
+	/** Override default radius */
+	property alias radius: background.radius
+
 	implicitWidth: Theme.style.buttonSize
 	implicitHeight: Theme.style.buttonSize
 

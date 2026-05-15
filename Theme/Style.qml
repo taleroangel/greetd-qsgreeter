@@ -11,7 +11,7 @@ QtObject {
 	// Text
 	property string fontFamilyHeading: "Noto Sans"
 	property string fontFamilyParagraph: "Noto Sans"
-	property int fontSizeHeading: 30
+	property int fontSizeHeading: 45
 	property int fontSizeParagraph: 14
 
 	// When set to false, borders are not drawn, instead
@@ -31,10 +31,15 @@ QtObject {
 	property int accountSpacing: 30
 	// Size of the account icon
 	property int accountSize: 120
-	// How much the account icon grows on hover
-	property real accountBounce: 1.2
+
+	// Password Prompt
+	property int promptSpacing: 5
+	property int promptSize: 200
+	property int promptInputPadding: 10
+	property int promptInputRadius: 10
 	
 	// Animations
+	property real animationBounce: 0.2
 	property int animationSpeedShort: 150
 	property int animationSpeedLarge: 300
 }

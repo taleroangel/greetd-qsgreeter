@@ -19,6 +19,8 @@ Singleton {
 	property string dateFormat: "<l10n.dateFormat>"
 	property string userListError: "<l10n.userListError>"
 	property string userWelcome: "<l10n.userWelcome(%1)>"
+	property string userPrompt: "<l10n.userPrompt(%1)>"
+	property string passwordPlaceholder: "<l10n.passwordPlaceholder>"
 
 	ConfigLoader {
 		target: l10n

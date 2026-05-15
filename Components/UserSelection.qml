@@ -15,51 +15,6 @@ Item {
 	/** User object when selected, or undefined for displaying list of users */
 	property var user: undefined
 
-	StackView {
-		id: stack
-		initialItem: userList
-
-		pushEnter: Transition {
-			NumberAnimation {
-				property: "opacity"
-				easing.type: Easing.InQuint
-				duration: Theme.style.animationSpeedLarge
-				from: 0.0
-				to: 1.0
-			}
-		}
-
-		pushExit: Transition {
-			NumberAnimation {
-				property: "opacity"
-				easing.type: Easing.OutQuint
-				duration: Theme.style.animationSpeedLarge
-				from: 1.0
-				to: 0.0
-			}
-		}
-
-		popExit: Transition {
-			NumberAnimation {
-				property: "opacity"
-				easing.type: Easing.OutQuint
-				duration: Theme.style.animationSpeedLarge
-				from: 1.0
-				to: 0.0
-			}
-		}
-
-		popEnter: Transition {
-			NumberAnimation {
-				property: "opacity"
-				easing.type: Easing.InQuint
-				duration: Theme.style.animationSpeedLarge
-				from: 0.0
-				to: 1.0
-			}
-		}
-	}
-
 	/* List of users */
 	Component {
 		id: userList
@@ -86,6 +41,72 @@ Item {
 				onCancel: {
 					stack.pop();
 				}
+
+				Component.onDestruction: {
+					root.user = undefined;
+				}
+			}
+		}
+	}
+
+	StackView {
+		id: stack
+		initialItem: userList
+
+		/* Animations */
+		pushEnter: Transition {
+			NumberAnimation {
+				property: "opacity"
+				easing.type: Easing.InQuint
+				duration: Theme.style.animationSpeedLarge
+				from: 0.0
+				to: 1.0
+			}
+
+			NumberAnimation {
+				property: "scale"
+				easing.type: Easing.InCubic
+				duration: Theme.style.animationSpeedLarge
+				from: (1 - Theme.style.animationBounce)
+				to: 1.0
+			}
+		}
+
+		pushExit: Transition {
+			NumberAnimation {
+				property: "opacity"
+				easing.type: Easing.OutQuint
+				duration: Theme.style.animationSpeedLarge
+				from: 1.0
+				to: 0.0
+			}
+		}
+
+		popExit: Transition {
+			NumberAnimation {
+				property: "opacity"
+				easing.type: Easing.OutQuint
+				duration: Theme.style.animationSpeedLarge
+				from: 1.0
+				to: 0.0
+			}
+
+			NumberAnimation {
+				property: "scale"
+				easing.type: Easing.OutCubic
+				duration: Theme.style.animationSpeedLarge
+				from: 1.0
+				to: (1 - Theme.style.animationBounce)
+			}
+		}
+
+		popEnter: Transition {
+			NumberAnimation {
+				property: "opacity"
+				easing.type: Easing.InQuint
+				duration: Theme.style.animationSpeedLarge
+				from: 0.0
+				to: 1.0
 			}
 		}
 	}
