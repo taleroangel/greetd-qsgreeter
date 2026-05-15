@@ -14,10 +14,25 @@ RowLayout {
 	id: root
 
 	/* User to show */
-	property var user: undefined
-
+	required property var user
+	 
 	/** When user cancels operation (back button) */
 	signal cancel
+
+	/**
+	 * Make a login attempt, parameter `info` has the following schema:
+	 *
+	 * @see getLoginInfo()
+	 * 
+	 * user {Object} org.freedesktop.Accounts.User -like object
+	 * user.UserName {string} Linux user
+	 * password {string} Password input text
+	 * session {Object} Selected wayland session information
+	 * session.name {string} Display name for the sesssion
+	 * session.path {string} System-path to the sessions's .desktop file
+	 * session.props {Object} .desktop file properties as key-value pairs
+	 */
+	signal tryLogin(info: var)
 
 	/** Function to get password prompt with username colored */
 	function getUserPrompt(username) {
@@ -25,9 +40,23 @@ RowLayout {
 		return L10n.userPrompt.arg(font);
 	}
 
+	/** Get user login information into an object */
+	function getLoginInfo() {
+		return {
+			"user": root.user,
+			"password": passwordInput.text,
+			"session": root.session
+		}
+	}
+
+	/** Currently selected session */
+	property var session: undefined
+
 	/** List Wayland sessions */
-	SessionService {
-		id: sessionService
+	property SessionService sessionService: SessionService {
+		Component.onDestruction: {
+			session = undefined;
+		}
 	}
 
 	spacing: Theme.style.accountSpacing
@@ -86,115 +115,24 @@ RowLayout {
 				radius: Theme.style.promptInputRadius
 				source: Qt.resolvedUrl("../Assets/next.svg")
 				onClicked: {
-					console.log("TODO: Try login");
+					const info = getLoginInfo();
+					root.tryLogin(info);
 				}
 			}
 		}
 
 		/* Session picker */
-		ComboBox {
+		SessionPicker {
 			id: sessionInput
+
+			// `sessions` is an object, use property "name" for display
 			model: sessionService.sessions
-
-			width: parent.width
-			padding: Theme.style.promptInputPadding
-
 			textRole: "name"
 
-			background: InputBackground {
-				selected: parent.activeFocus
-			}
+			width: parent.width
 
-			contentItem: Text {
-				text: sessionInput.displayText
-				font: sessionInput.font
-				color: Theme.colors.secondary
-				verticalAlignment: Text.AlignVCenter
-			}
-
-			popup: Popup {
-				id: popup
-				y: (parent.height - 1)
-				width: parent.width
-				height: contentItem.implicitHeight + (parent.padding * 2)
-
-				contentItem: ListView {
-					clip: true
-					implicitHeight: contentHeight
-					model: sessionInput.popup.visible ? sessionInput.delegateModel : null
-					currentIndex: sessionInput.highlightedIndex
-
-					ScrollIndicator.vertical: ScrollIndicator { }
-				}
-
-				background: InputBackground {
-					selected: true
-				}
-
-				enter: Transition {
-					NumberAnimation {
-						property: "scale"
-						easing: Easing.InQuad
-						duration: Theme.style.animationSpeedShort
-						from: (1 - Theme.style.animationBounce)
-						to: 1.0
-					}
-					NumberAnimation {
-						property: "opacity"
-						duration: Theme.style.animationSpeedShort
-						from: 0.0
-						to: 1.0
-					}
-				}
-				
-				exit: Transition {
-					SequentialAnimation {
-						NumberAnimation {
-							property: "scale"
-							easing: Easing.InQuad
-							duration: (Theme.style.animationSpeedShort / 2)
-							from: 1.0
-							to: (1 + (Theme.style.animationBounce) / 2)
-						}
-
-						NumberAnimation {
-							property: "scale"
-							easing: Easing.OutQuad
-							duration: (Theme.style.animationSpeedShort / 2)
-							from: (1 + (Theme.style.animationBounce / 2))
-							to: (1 - (Theme.style.animationBounce / 2))
-						}
-					}
-					
-					NumberAnimation {
-						property: "opacity"
-						duration: Theme.style.animationSpeedShort
-						from: 1.0
-						to: 0.0
-					}
-				}
-			}
-
-			delegate: ItemDelegate {
-				id: delegate
-
-				required property var model
-				required property int index
-
-				highlighted: sessionInput.highlightedIndex === index
-				width: sessionInput.width
-
-				contentItem: Text {
-					text: delegate.model[sessionInput.textRole]
-					color: delegate.highlighted ? Theme.colors.secondaryContrast : Theme.colors.surfaceContrast
-					verticalAlignment: Text.AlignVCenter
-				}
-
-				background: Rectangle {
-					width: popup.width - (sessionInput.padding * 2)
-					radius: popup.background.radius
-					color: delegate.highlighted ? Theme.colors.secondary : "transparent"
-				}
+			onCurrentIndexChanged: {
+				root.session = model[currentIndex];
 			}
 		}
 	}

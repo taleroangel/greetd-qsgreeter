@@ -42,6 +42,10 @@ Item {
 					stack.pop();
 				}
 
+				onTryLogin: function(obj) {
+					console.log("TODO: Login");
+				}
+
 				Component.onDestruction: {
 					root.user = undefined;
 				}

@@ -2,7 +2,7 @@
  * Parse contents from a .desktop file
  *
  * @param contents {string} Plain text contents of the file
- * @return {Object} An object with the parsed key-value pairs (keys in camelCase)
+ * @return {Object} An object with the parsed key-value pairs
  */
 function parseDesktopFile(contents) {
 	const result = {};
@@ -27,7 +27,6 @@ function parseDesktopFile(contents) {
 
 		// Parse key as camel case
 		let key = match[1].trim();
-		key = key[0].toLowerCase() + key.slice(1);
 		const value = match[2].trim();
 
 		// Insert value

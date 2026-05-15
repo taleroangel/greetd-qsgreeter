@@ -55,9 +55,9 @@ QtObject {
 
 			onLoaded: {
 				const obj = Helper.parseDesktopFile(file.text());
-				console.log("Session successfully registered: " + obj["name"]);
+				console.log("Session successfully registered: " + obj["Name"]);
 				sessions.push({
-					name: obj["name"] ?? "",
+					name: obj["Name"] ?? "",
 					path: modelData,
 					props: obj
 				});
