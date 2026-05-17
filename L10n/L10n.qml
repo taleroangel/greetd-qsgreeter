@@ -26,9 +26,10 @@ Singleton {
 	property string userWelcome: "<l10n.userWelcome(%1)>"
 	property string userPrompt: "<l10n.userPrompt(%1)>"
 	property string passwordPlaceholder: "<l10n.passwordPlaceholder>"
+	property string passwordError: "<l10n.passwordError>"
 
 	ConfigLoader {
 		target: l10n
-		src: Locale.getLocalePath()
+		src: Quickshell.shellDir + "/" + Locale.getLocalePath()
 	}
 }

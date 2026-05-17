@@ -3,6 +3,8 @@
  * Defaults to "L10n/en.json" if the language isn't found or is "C".
  */
 function getLocalePath() {
+	console.log("Current locale is: " + Qt.locale().name);
+
     let lang = Qt.locale().name.substring(0, 2);
     const supported = ["en", "es"];
 

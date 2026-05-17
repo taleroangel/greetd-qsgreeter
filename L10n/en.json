@@ -9,5 +9,6 @@
 	"userListError": "Unable to retrieve users from D-Bus",
 	"userWelcome": "Welcome back, %1",
 	"userPrompt": "Login for %1",
-	"passwordPlaceholder": "Password"
+	"passwordPlaceholder": "Password",
+	"passwordError": "Wrong password"
 }

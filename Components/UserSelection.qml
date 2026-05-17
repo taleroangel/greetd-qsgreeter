@@ -1,6 +1,7 @@
 import QtQuick
 import QtQuick.Controls
 
+import qs.Services
 import qs.Theme
 
 /**
@@ -21,7 +22,6 @@ Item {
 		Item {
 			UserList {
 				anchors.centerIn: parent
-
 				onSelected: function(user) {
 					root.user = user;
 					stack.push(userLogin);
@@ -40,10 +40,6 @@ Item {
 
 				onCancel: {
 					stack.pop();
-				}
-
-				onTryLogin: function(obj) {
-					console.log("TODO: Login");
 				}
 
 				Component.onDestruction: {

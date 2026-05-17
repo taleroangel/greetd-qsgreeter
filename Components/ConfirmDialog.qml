@@ -27,9 +27,6 @@ Dialog {
 		border.color: Theme.colors.primary
 	}
 
-	header: undefined
-	footer: undefined
-
 	Column {
 		anchors.fill: parent
 		spacing: Theme.style.buttonSpacing
@@ -37,13 +34,15 @@ Dialog {
 		/* Header Text */
 		Rectangle {
 			width: parent.width
-			height: childrenRect.height
+			height: Theme.style.fontSizeParagraph
 
 			color: "transparent"
 			Text {
 				anchors.centerIn: parent
 				text: L10n.dialogConfirmAction
 				color: Theme.colors.primary
+				font.family: Theme.style.fontFamilyParagraph
+				font.pixelSize: Theme.style.fontSizeParagraph
 			}
 		}
 
@@ -51,6 +50,8 @@ Dialog {
 		Text {
 			text: root.message
 			color: Theme.colors.surfaceContrast
+			font.family: Theme.style.fontFamilyParagraph
+			font.pixelSize: Theme.style.fontSizeParagraph
 		}
 
 		/* Buttons */
@@ -66,11 +67,15 @@ Dialog {
 				TextButton {
 					text: L10n.dialogCancel
 					onClicked: root.reject()
+					font.family: Theme.style.fontFamilyParagraph
+					font.pixelSize: Theme.style.fontSizeParagraph
 				}
 
 				TextButton {
 					text: L10n.dialogAccept
 					onClicked: root.accept()
+					font.family: Theme.style.fontFamilyParagraph
+					font.pixelSize: Theme.style.fontSizeParagraph
 				}
 			}
 		}

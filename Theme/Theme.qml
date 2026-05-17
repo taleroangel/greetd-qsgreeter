@@ -15,12 +15,16 @@ Singleton {
 	property Colorscheme colors: Colorscheme {}
 	ConfigLoader {
 		target: theme.colors
-		src: "colorscheme.json"
+		src: Quickshell.shellDir + "/colorscheme.json"
 	}
 
 	property Style style: Style {}
 	ConfigLoader {
 		target: theme.style
-		src: "style.json"
+		src: Quickshell.shellDir + "/style.json"
+
+		onFinished: {
+			theme.style.applyScale();
+		}
 	}
 }

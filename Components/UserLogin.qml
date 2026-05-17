@@ -10,29 +10,14 @@ import qs.Services
  * UserLogin.qml
  * Show the login screen (password and session) for a selected user
  */
-RowLayout {
+ColumnLayout {
 	id: root
 
 	/* User to show */
 	required property var user
-	 
+
 	/** When user cancels operation (back button) */
 	signal cancel
-
-	/**
-	 * Make a login attempt, parameter `info` has the following schema:
-	 *
-	 * @see getLoginInfo()
-	 * 
-	 * user {Object} org.freedesktop.Accounts.User -like object
-	 * user.UserName {string} Linux user
-	 * password {string} Password input text
-	 * session {Object} Selected wayland session information
-	 * session.name {string} Display name for the sesssion
-	 * session.path {string} System-path to the sessions's .desktop file
-	 * session.props {Object} .desktop file properties as key-value pairs
-	 */
-	signal tryLogin(info: var)
 
 	/** Function to get password prompt with username colored */
 	function getUserPrompt(username) {
@@ -40,17 +25,37 @@ RowLayout {
 		return L10n.userPrompt.arg(font);
 	}
 
-	/** Get user login information into an object */
-	function getLoginInfo() {
-		return {
-			"user": root.user,
-			"password": passwordInput.text,
-			"session": root.session
+	/** Currently selected session */
+	property var session: undefined
+
+	/** Message to show instead of name */
+	property string message: ""
+
+	/** Wrong password animation */
+	property bool badPassword: false
+
+	/** Service for triggering login */
+	property LoginService loginService: LoginService {
+		onMessage: function(message) {
+			root.message = message;
+		}
+
+		onFailure: {
+			root.badPassword = true
 		}
 	}
 
-	/** Currently selected session */
-	property var session: undefined
+	/**
+	 * Make a login attempt
+	 *
+	 * @param user {Object} org.freedesktop.Accounts.User -like object
+	 * @param user.UserName {string} Linux user
+	 * @param password {string} Password input text
+	 * @param session {Object} .desktop file properties as key-value pairs
+	 */
+	function tryLogin(user: var, password: string, session: var) {
+		loginService.login(user, password, session)
+	}
 
 	/** List Wayland sessions */
 	property SessionService sessionService: SessionService {
@@ -59,80 +64,126 @@ RowLayout {
 		}
 	}
 
-	spacing: Theme.style.accountSpacing
+	/** Message text */
+	Text {
+		text: (root.badPassword)
+			? L10n.passwordError
+			: (root.message != undefined && root.message != "") ? root.message : ""
+		visible: root.badPassword || root.message != undefined && root.message != ""
+		Layout.alignment: Qt.AlignTop | Qt.AlignHCenter
+		Layout.bottomMargin: Theme.style.accountSpacing
 
-	/* Go Back Button */
-	IconButton {
-		source: Qt.resolvedUrl("../Assets/back.svg")
-		onClicked: {
-			root.cancel();
-		}
+		color: Theme.colors.error
+		font.family: Theme.style.fontFamilyParagraph
+		font.pixelSize: Theme.style.fontSizeParagraph
 	}
 
-	/* User Face Icon */
-	UserButton {
-		realName: (user != null) ? user.RealName : ""
-		iconPath: (user != null) ? user.IconFile : ""
-		enabled: false
+	RowLayout {
+		Layout.alignment: Qt.AlignCenter
+		spacing: Theme.style.accountSpacing
 
-		Layout.preferredWidth: Theme.style.accountSize
-		Layout.preferredHeight: Theme.style.accountSize
-	}
-
-	/* Prompt */
-	Column {
-		width: Theme.style.promptSize
-		spacing: Theme.style.promptSpacing
-
-		Text {
-			textFormat: Text.StyledText
-			text: (user != null) ? root.getUserPrompt(user.UserName) : ""
-			color: Theme.colors.surfaceContrast
-			font.family: Theme.style.fontFamilyParagraph
-			font.pixelSize: Theme.style.fontSizeParagraph
+		/* Go Back Button */
+		IconButton {
+			source: Qt.resolvedUrl("../Assets/back.svg")
+			onClicked: {
+				root.cancel();
+			}
 		}
 
-		/* Password Prompt */
-		RowLayout {
-			width: parent.width
+		/* User Face Icon */
+		UserButton {
+			realName: (user != null) ? user.RealName : ""
+			iconPath: (user != null) ? user.IconFile : ""
+			enabled: false
+
+			Layout.preferredWidth: Theme.style.accountSize
+			Layout.preferredHeight: Theme.style.accountSize
+		}
+
+		/* Prompt */
+		Column {
+			width: Theme.style.promptSize
 			spacing: Theme.style.promptSpacing
 
-			/* Password Input Field */
-			TextField {
-				id: passwordInput
-				Layout.fillWidth: true
-				echoMode: TextInput.Password
-				placeholderText: L10n.passwordPlaceholder
-				padding: Theme.style.promptInputPadding
-				background: InputBackground {
-					selected: parent.activeFocus
+			Text {
+				textFormat: Text.StyledText
+				text: (user != null) ? root.getUserPrompt(user.UserName) : ""
+				color: Theme.colors.surfaceContrast
+				font.family: Theme.style.fontFamilyParagraph
+				font.pixelSize: Theme.style.fontSizeParagraph
+			}
+
+			/* Password Prompt */
+			RowLayout {
+				width: parent.width
+				spacing: Theme.style.promptSpacing
+
+				/* Password Input Field */
+				TextField {
+					id: passwordInput
+					Layout.fillWidth: true
+					echoMode: TextInput.Password
+					placeholderText: L10n.passwordPlaceholder
+
+					padding: Theme.style.promptInputPadding
+					color: root.badPassword ? Theme.colors.error : Theme.colors.primary
+					background: InputBackground {
+						border.color: root.badPassword ? Theme.colors.error : Theme.colors.primary
+						selected: parent.activeFocus
+					}
+					placeholderTextColor: activeFocus
+						? Theme.colors.primary
+						: (root.badPassword ? Theme.colors.error : Theme.colors.secondary)
+
+					onActiveFocusChanged: {
+						if (activeFocus) {
+							root.badPassword = false;
+						}
+					}
+
+					Behavior on color {
+						ColorAnimation {
+							duration: Theme.style.animationSpeedShort
+						}
+					}
+
+					Behavior on placeholderTextColor {
+						ColorAnimation {
+							duration: Theme.style.animationSpeedShort
+						}
+					}
+				}
+
+				/* Login button */
+				IconButton {
+					Layout.maximumHeight: passwordInput.height
+					radius: Theme.style.promptInputRadius
+					source: Qt.resolvedUrl("../Assets/next.svg")
+					onClicked: {
+						// Get properties
+						const user = root.user;
+						const password = passwordInput.text;
+						const session = root.session.props;
+
+						// Start login attempt
+						root.tryLogin(user, password, session);
+					}
 				}
 			}
 
-			/* Login button */
-			IconButton {
-				Layout.maximumHeight: passwordInput.height
-				radius: Theme.style.promptInputRadius
-				source: Qt.resolvedUrl("../Assets/next.svg")
-				onClicked: {
-					const info = getLoginInfo();
-					root.tryLogin(info);
+			/* Session picker */
+			SessionPicker {
+				id: sessionInput
+
+				// `sessions` is an object, use property "name" for display
+				model: sessionService.sessions
+				textRole: "name"
+
+				width: parent.width
+
+				onCurrentIndexChanged: {
+					root.session = model[currentIndex];
 				}
-			}
-		}
-
-		/* Session picker */
-		SessionPicker {
-			id: sessionInput
-
-			// `sessions` is an object, use property "name" for display
-			model: sessionService.sessions
-			textRole: "name"
-
-			width: parent.width
-
-			onCurrentIndexChanged: {
-				root.session = model[currentIndex];
 			}
 		}
 	}

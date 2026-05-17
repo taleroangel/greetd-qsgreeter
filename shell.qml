@@ -4,13 +4,19 @@ import QtQuick.Layouts
 
 import qs.Theme
 import qs.L10n
+
+import qs.Services as Services
 import qs.Components as Components
 
 FloatingWindow {
+
 	title: "qsgreeter"
 	color: "transparent"
-	maximumSize: "1000x500"
+
 	minimumSize: "600x400"
+
+	/** Service for triggering poweroff/reboot */
+	property Services.PowerService powerService: Services.PowerService {}
 
 	/* Poweroff confirmation dialog */
 	Components.ConfirmDialog {
@@ -18,7 +24,7 @@ FloatingWindow {
 		message: L10n.dialogShutdown
 
 		onAccepted: {
-			console.log("TODO: Shutdown");
+			powerService.shutdown()
 		}
 	}
 
@@ -28,7 +34,7 @@ FloatingWindow {
 		message: L10n.dialogReboot
 
 		onAccepted: {
-			console.log("TODO: Reboot");
+			powerService.reboot()
 		}
 	}
 

@@ -17,4 +17,7 @@ CustomButton {
 	implicitHeight: Theme.style.buttonSize
 
 	display: AbstractButton.IconOnly
+
+	icon.width: Theme.style.fontSizeParagraph
+	icon.height: Theme.style.fontSizeParagraph
 }

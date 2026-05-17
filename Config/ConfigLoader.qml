@@ -11,13 +11,22 @@ import "config.js" as Config
 FileView {
 	id: root
 
+	/** Filename path */
 	property alias src: root.path
+
+	/** QtObject to apply JSON properties to */
 	property QtObject target
+
+	/** On object initialization finish */
+	signal finished;
 
 	preload: true
 	blockLoading: true
 	watchChanges: true
 
 	onFileChanged: reload()
-	onLoaded: Config.apply(text(), target)
+	onLoaded: {
+		Config.apply(text(), target);
+		root.finished();
+	}
 }
