@@ -13,7 +13,7 @@
 	"buttonSpacing": 15,
 	"accountSpacing": 30,
 	"accountSize": 150,
-	"promptSpacing": 5,
+	"promptSpacing": 8,
 	"promptSize": 200,
 	"promptInputPadding": 8,
 	"promptInputRadius": 10,

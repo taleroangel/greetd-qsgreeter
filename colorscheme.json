@@ -9,5 +9,6 @@
 	"errorContrast": "#690005",
 	"surface": "#141317",
 	"surfaceBright": "#3b383e",
+	"surfaceInactive": "#948f9a",
 	"surfaceContrast": "#e6e1e8"
 }

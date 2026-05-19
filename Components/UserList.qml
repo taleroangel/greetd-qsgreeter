@@ -86,6 +86,8 @@ Item {
 			id: repeater
 			model: userService.users
 			delegate: UserButton {
+
+				required property int index
 				required property var modelData
 
 				realName: modelData.RealName
@@ -95,6 +97,20 @@ Item {
 				Layout.preferredHeight: Theme.style.accountSize
 
 				onClicked: root.selected(modelData)
+
+				// Default enter action
+				Keys.onPressed: (event) => {
+					if (event.key === Qt.Key_Return) {
+						root.selected(modelData);
+						event.accepted = true;
+					}
+				}
+
+				Component.onCompleted: {
+					if (index == 0) {
+						forceActiveFocus();
+					}
+				}
 			}
 		}
 	}

@@ -12,12 +12,17 @@ ComboBox {
 
 	background: InputBackground {
 		selected: control.activeFocus
+		border.color: control.activeFocus
+			? Theme.colors.primary
+			: Theme.colors.surfaceInactive
 	}
 
 	contentItem: Text {
 		text: control.displayText
 		font: control.font
-		color: Theme.colors.secondary
+		color: control.activeFocus
+			? Theme.colors.primary
+			: Theme.colors.surfaceInactive
 		verticalAlignment: Text.AlignVCenter
 	}
 
@@ -62,7 +67,7 @@ ComboBox {
 		background: Rectangle {
 			width: popup.width - (control.padding * 2)
 			radius: popup.background.radius
-			color: delegate.highlighted ? Theme.colors.secondary : "transparent"
+			color: delegate.highlighted ? Theme.colors.secondary : Theme.colors.surfaceContrast
 		}
 	}
 }

@@ -122,23 +122,45 @@ ColumnLayout {
 				TextField {
 					id: passwordInput
 					Layout.fillWidth: true
+
 					echoMode: TextInput.Password
 					placeholderText: L10n.passwordPlaceholder
 
 					padding: Theme.style.promptInputPadding
 					color: root.badPassword ? Theme.colors.error : Theme.colors.primary
+
 					background: InputBackground {
-						border.color: root.badPassword ? Theme.colors.error : Theme.colors.primary
 						selected: parent.activeFocus
+						border.color: root.badPassword
+							? Theme.colors.error
+							: (passwordInput.activeFocus ? Theme.colors.primary : Theme.colors.surfaceInactive)
 					}
+
 					placeholderTextColor: activeFocus
 						? Theme.colors.primary
-						: (root.badPassword ? Theme.colors.error : Theme.colors.secondary)
+						: (root.badPassword ? Theme.colors.error : Theme.colors.surfaceInactive)
 
 					onActiveFocusChanged: {
 						if (activeFocus) {
 							root.badPassword = false;
 						}
+					}
+
+					Keys.onPressed: (event) => {
+						if (event.key === Qt.Key_Return) {
+							// Get properties
+							const user = root.user;
+							const password = passwordInput.text;
+							const session = root.session.props;
+
+							// Start login attempt
+							root.tryLogin(user, password, session);
+							event.accepted = true;
+						}
+					}
+
+					Component.onCompleted: {
+						forceActiveFocus();
 					}
 
 					Behavior on color {

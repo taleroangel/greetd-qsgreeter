@@ -51,11 +51,6 @@ QtObject {
 		target: Greetd
 
 		function onAuthMessage(message, error, responseRequired, echoResponse) {
-			console.log(message);
-			console.log(error);
-			console.log(responseRequired);
-			console.log(echoResponse);
-
 			// Handle generic messages
 			if (!error && !responseRequired && echoResponse) {
 				root.message(message);
