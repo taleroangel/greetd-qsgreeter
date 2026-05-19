@@ -22,11 +22,12 @@ sudo make uninstall
 ```
 
 ### Arch Linux
-Clone the repo and run `makepkg -si` to install the package with the provided [PKGBUILD](PKGBUILD).
+Currenlty not in the AUR. Download the [PKGBUILD](PKGBUILD) file and run `makepkg`.
 
 ```sh
-git clone https://github.com/taleroangel/greetd-qsgreeter
+mkdir greetd-qsgreeter
 cd greetd-qsgreeter
+curl -O https://raw.githubusercontent.com/taleroangel/greetd-qsgreeter/main/PKGBUILD
 makepkg -si
 ```
 
