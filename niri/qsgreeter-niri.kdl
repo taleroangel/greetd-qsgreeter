@@ -1,0 +1,32 @@
+spawn-at-startup "quickshell" "-c" "qsgreeter"
+
+window-rule {
+	match title="qsgreeter"
+	open-maximized true
+}
+
+prefer-no-csd
+
+input {
+	keyboard {
+		//layout "us"
+	}
+}
+
+layout  {
+	gaps 0
+	always-center-single-column
+	background-color "#141317"
+
+	focus-ring {
+		off
+	}
+
+	border {
+		off
+	}
+}
+
+hotkey-overlay {
+	skip-at-startup
+}
