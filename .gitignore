@@ -1,0 +1,5 @@
+# makepkg generated files
+src/
+pkg/
+*.pkg.tar.zst
+/qsgreeter-git/

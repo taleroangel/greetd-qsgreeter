@@ -7,8 +7,19 @@ A [QuickShell](https://quickshell.org/)-based greeter for [greetd](https://sr.ht
 | ![Users](docs/screenshot_users.png) | ![Login](docs/screenshot_login.png) |
 
 ## 🪛 Installation
+Use _make_ to copy files into standard _quickshell_ directories. If _niri_ is present, the script
+will also install `qsgreeter-niri.kdl` into `/etc/greetd/`
 
-Only **Arch Linux** is officially supported, but installation only requires copying files into _quickshell_ directory.
+```sh
+git clone https://github.com/taleroangel/greetd-qsgreeter
+cd greetd-qsgreeter
+sudo make install
+```
+
+Uninstall the package with:
+```sh
+sudo make uninstall
+```
 
 ### Arch Linux
 Clone the repo and run `makepkg -si` to install the package with the provided [PKGBUILD](PKGBUILD).
@@ -18,9 +29,6 @@ git clone https://github.com/taleroangel/greetd-qsgreeter
 cd greetd-qsgreeter
 makepkg -si
 ```
-
-### Other Distros
-Clone the repo and copy `qsgreeter` into `/etc/xdg/quickshell/`
 
 ```sh
 git clone https://github.com/taleroangel/greetd-qsgreeter
