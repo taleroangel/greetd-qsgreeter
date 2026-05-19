@@ -8,7 +8,7 @@ A [QuickShell](https://quickshell.org/)-based greeter for [greetd](https://sr.ht
 
 ## 🪛 Installation
 
-Only **Arch Linux* is officially supported, but installation only requires copying files into _quickshell_ directory.
+Only **Arch Linux** is officially supported, but installation only requires copying files into _quickshell_ directory.
 
 ### Arch Linux
 Clone the repo and run `makepkg -si` to install the package with the provided [PKGBUILD](PKGBUILD).
