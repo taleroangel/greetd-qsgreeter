@@ -7,7 +7,8 @@ arch=('any')
 url='https://github.com/taleroangel/greetd-qsgreeter'
 license=('MIT')
 depends=('greetd' 'quickshell')
-optdepends=('niri: recommended wayland compositor')
+optdepends=('niri: wayland compositor (installs qsgreeter-niri.kdl)'
+            'hyprland: wayland compositor (installs qsgreeter-hyprland.lua)')
 makedepends=('git')
 source=("${pkgname}::git+${url}.git")
 sha256sums=('SKIP')
